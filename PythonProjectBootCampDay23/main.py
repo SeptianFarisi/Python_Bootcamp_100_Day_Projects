@@ -14,7 +14,7 @@ score = Scoreboard()
 player = Player()
 screen.onkey(player.move, "Up")
 all_car = []
-for _ in range(5):
+for _ in range(6):
     car = CarManager()
     all_car.append(car)
 
