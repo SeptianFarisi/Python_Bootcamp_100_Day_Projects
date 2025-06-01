@@ -8,6 +8,7 @@ screen = Screen()
 screen.setup(600, 600)
 screen.bgcolor("black")
 screen.title("My Snake Game")
+screen.tracer(0)
 
 snake = Snake()
 food = Food()
@@ -19,9 +20,9 @@ screen.onkey(snake.down, "Down")
 screen.onkey(snake.right, "Right")
 screen.onkey(snake.left, "Left")
 
+game = True
 
-
-while snake.game:
+while game:
     screen.update()
     time.sleep(0.1)
     snake.move()
@@ -31,13 +32,13 @@ while snake.game:
         snake.extend()
         score.current_score()
 
-    if snake.head.xcor() > 260 or snake.head.xcor() < -260 or snake.head.ycor() > 260 or snake.head.ycor() < -260:
-        snake.game = False
-        score.game_over()
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        snake.reset()
+        score.reset_score()
 
-    for tail in snake.new_segment[1::]:
-        if snake.head.distance(tail) < 20:
-            snake.game = False
-            score.game_over()
+    for tail in snake.new_segment[1:]:
+        if snake.head.distance(tail) < 10:
+            snake.reset()
+            score.reset_score()
 
 screen.exitonclick()
