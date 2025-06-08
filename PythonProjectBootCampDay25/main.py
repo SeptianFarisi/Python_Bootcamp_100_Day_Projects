@@ -10,20 +10,19 @@ turtle.shape("blank_states_img.gif")
 data = pd.read_csv("50_states.csv")
 len_data = len(data.state)
 list_states = data.state.to_list()
-guess_data = pd.read_csv("miss_state.csv")
-mising_states = []
-mising_states.append(guess_data)
-print(list_states)
+guess_state = []
 
-while len(mising_states) < 50:
-    answer = screen.textinput(f"{len(mising_states)}/{len_data} state correct","What's another state's name?").title()
+while len(guess_state) < 50:
+    answer = screen.textinput(f"{len(guess_state)}/{len_data} state correct",
+                              "What's another state's name?").title()
     if answer == "Exit":
-        break
-    if answer == "Save":
+        mising_states = [state for state in list_states if state not in guess_state]
         miss_states = pd.DataFrame(mising_states)
         miss_states.to_csv("miss_state.csv")
+        break
+
     if answer in list_states:
-        mising_states.append(answer)
+        guess_state.append(answer)
         new_data = data[data["state"] == answer]
         t = Turtle()
         t.hideturtle()
